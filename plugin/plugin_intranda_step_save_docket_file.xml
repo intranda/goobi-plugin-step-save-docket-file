@@ -16,6 +16,22 @@
         <value>test</value>
         <!-- display button to finish the task directly from within the entered plugin -->
         <allowTaskFinishButtons>true</allowTaskFinishButtons>
+
+        <!--
+        To get a docket by its id from the database, add id="0" here.
+        To get a docket by its name from the database, add name="Standard" here.
+        To get a docket by its file path, add file="path/to/file/" here
+        -->
+        <template name="Standard" />
+        <template id="1" />
+        <template file="/opt/digiverso/goobi/xslt/docket.xsl" />
+        <!-- Specify the output directory and file here. Important is the ending. Supported are *.tiff and *.pdf -->
+        <output file="/opt/digiverso/goobi/xslt/docket.tiff" />
+        <!-- Default format is DIN A4 -->
+        <resolution width="21.0" height="29.7" />
+        <!-- Set the number of dots per inch for the output file here. Common values are 300 or 600 -->
+        <dpi>600</dpi>
+
     </config>
 
 </config_plugin>
