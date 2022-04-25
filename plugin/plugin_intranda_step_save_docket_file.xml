@@ -1,37 +1,20 @@
 <config_plugin>
-    <!--
-        order of configuration is:
-          1.) project name and step name matches
-          2.) step name matches and project is *
-          3.) project name matches and step name is *
-          4.) project name and step name are *
-	-->
-    
     <config>
-        <!-- which projects to use for (can be more then one, otherwise use *) -->
-        <project>*</project>
-        <step>*</step>
-        
-        <!-- sample parameter -->
-        <value>test</value>
-        <!-- display button to finish the task directly from within the entered plugin -->
-        <allowTaskFinishButtons>true</allowTaskFinishButtons>
 
         <!--
         To get a docket by its id from the database, add id="0" here.
         To get a docket by its name from the database, add name="Standard" here.
         To get a docket by its file path, add file="path/to/file/" here
         -->
+        <!--<template id="1" />-->
         <template name="Standard" />
-        <template id="1" />
-        <template file="/opt/digiverso/goobi/xslt/docket.xsl" />
+        <!--<template file="/opt/digiverso/goobi/xslt/docket.xsl" />-->
+
         <!-- Specify the output directory and file here. Important is the ending. Supported are *.tiff and *.pdf -->
-        <output file="/opt/digiverso/goobi/xslt/docket.tiff" />
-        <!-- Default format is DIN A4 -->
-        <resolution width="21.0" height="29.7" />
+        <output file="/opt/digiverso/goobi/xslt/docket.pdf" />
+
         <!-- Set the number of dots per inch for the output file here. Common values are 300 or 600 -->
-        <dpi>600</dpi>
+        <dotsPerInch>300</dotsPerInch>
 
     </config>
-
 </config_plugin>
