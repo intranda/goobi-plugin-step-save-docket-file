@@ -1,20 +1,26 @@
 <config_plugin>
+    <!--
+        order of configuration is:
+          1.) project name and step name matches
+          2.) step name matches and project is *
+          3.) project name matches and step name is *
+          4.) project name and step name are *
+-->
     <config>
+        <!-- which projects to use for (can be more then one, otherwise use *) -->
+        <project>*</project>
+        <step>*</step>
 
-        <!--
-        To get a docket by its id from the database, add id="0" here.
-        To get a docket by its name from the database, add name="Standard" here.
-        To get a docket by its file path, add file="path/to/file/" here
-        -->
-        <!--<template id="1" />-->
-        <template name="Standard" />
-        <!--<template file="/opt/digiverso/goobi/xslt/docket.xsl" />-->
+        <template file="/opt/digiverso/goobi/xslt/docket.xsl" />
 
-        <!-- Specify the output directory and file here. Important is the ending. Supported are *.tiff and *.pdf -->
-        <output file="/opt/digiverso/goobi/xslt/docket.pdf" />
+
+        <!-- mimeType: image/tiff or application/pdf -->
+        <!-- filename: name of the output file-->
+        <!-- folder: name of the output folder, e.g. 'master' or 'media' -->
+        <output mimeType="image/tiff" filename="00000000.tif" folder="master" />
 
         <!-- Set the number of dots per inch for the output file here. Common values are 300 or 600 -->
-        <dotsPerInch>300</dotsPerInch>
+        <dotsPerInch>150</dotsPerInch>
 
     </config>
 </config_plugin>
