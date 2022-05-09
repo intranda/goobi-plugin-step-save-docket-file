@@ -2,6 +2,7 @@ package de.intranda.goobi.plugins;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -144,8 +145,11 @@ public class SaveDocketFileStepPlugin implements IStepPluginVersion2 {
         XsltPreparatorDocket preparator = new XsltPreparatorDocket();
         try {
             XsltToPdf exporter = new XsltToPdf();
-            FileOutputStream fileOutput = new FileOutputStream(outputFile.toFile());
-            exporter.startExport(this.step.getProzess(), fileOutput, docketFile.toString(), preparator, mimeType, dotsPerInch);
+            Path tempfile = Files.createTempFile("docket","tif");
+
+            FileOutputStream fileOutput = new FileOutputStream(tempfile.toFile());
+            exporter.startExport(this.step.getProzess(), fileOutput, docketFile.toString(), preparator, mimeType, dotsPerInch, false);
+            StorageProvider.getInstance().copyFile(tempfile, outputFile);
             return PluginReturnValue.FINISH;
         } catch (IOException e) {
             log.error(e);
