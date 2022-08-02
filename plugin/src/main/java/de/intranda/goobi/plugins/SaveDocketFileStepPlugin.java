@@ -82,7 +82,7 @@ public class SaveDocketFileStepPlugin implements IStepPluginVersion2 {
         try {
             String destination = step.getProzess().getConfiguredImageFolder(folder);
             outputFile = Paths.get(destination, fileName);
-        } catch (IOException | InterruptedException | SwapException | DAOException e) {
+        } catch (IOException | SwapException | DAOException e) {
             log.error(e);
         }
 
