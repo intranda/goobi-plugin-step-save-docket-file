@@ -5,7 +5,7 @@
           2.) step name matches and project is *
           3.) project name matches and step name is *
           4.) project name and step name are *
--->
+    -->
     <config>
         <!-- which projects to use for (can be more then one, otherwise use *) -->
         <project>*</project>
@@ -17,7 +17,18 @@
         <!-- mimeType: image/tiff or application/pdf -->
         <!-- filename: name of the output file-->
         <!-- folder: name of the output folder, e.g. 'master' or 'media' -->
-        <output mimeType="image/tiff" filename="00000000.tif" folder="master" />
+
+        <!--
+        In the filename parameter, following variables can be used:
+            {process} - inserts the whole process title
+            {process_suffix} - inserts the suffix of the process title behind the first underscore
+
+        Examples:
+            process title: "media_abc_def"
+            EPN_{process}_0000.tif -> EPN_media_abc_def_0000.tif
+            EPN_{process_suffix}_0000.tif -> EPN_abc_def_0000.tif
+        -->
+        <output mimeType="image/tiff" filename="EPN_{process_suffix}_0000.tif" folder="master" />
 
         <!-- Set the number of dots per inch for the output file here. Common values are 300 or 600 -->
         <dotsPerInch>150</dotsPerInch>

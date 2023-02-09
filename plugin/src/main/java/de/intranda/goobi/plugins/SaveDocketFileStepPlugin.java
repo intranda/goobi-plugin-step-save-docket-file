@@ -76,8 +76,10 @@ public class SaveDocketFileStepPlugin implements IStepPluginVersion2 {
         log.trace("Using docket file '{}'", docketFile.getFileName().toString());
 
         mimeType = config.getString("/output/@format", "image/tiff");
-        String fileName = config.getString("/output/@filename", "00000000.tif");
+        String fileName = config.getString("/output/@filename", "EPN_{process_suffix}_0000.tif");
         String folder = config.getString("/output/@folder", "master");
+
+        fileName = this.replaceVariables(fileName);
 
         try {
             String destination = step.getProzess().getConfiguredImageFolder(folder);
@@ -95,6 +97,41 @@ public class SaveDocketFileStepPlugin implements IStepPluginVersion2 {
 
         log.trace("Using resolution of '{}", dotsPerInch);
 
+    }
+
+    /**
+     * Replaces the variables {process} and {process_suffix} in the file name with the respective process title or process title suffix (everything
+     * behind the first underscore) and returns the new file name. If no variables are used, the given file name is not changed and directly returned.
+     * 
+     * @param fileName The file name that could contain the variables for the process title
+     * @return The file name with replaced variables
+     */
+    private String replaceVariables(String fileName) {
+        // Replace the variables:
+        // {process} can be used to insert the whole process title
+        // {process_suffix} can be used to insert the process title substring behind the first underscore
+        String processTitleVariable = "{process}";
+        String processTitleSuffixVariable = "{process_suffix}";
+        String processTitle = this.step.getProzess().getTitel();
+
+        if (fileName.contains(processTitleVariable)) {
+            fileName = fileName.replace(processTitleVariable, processTitle);
+        }
+
+        if (fileName.contains(processTitleSuffixVariable)) {
+            // If the process title contains an underscore, the substring after the underscore is used.
+            String processTitleSuffix = processTitle;
+
+            int position = processTitle.indexOf("_");
+            if (position >= 0) {
+                processTitleSuffix = processTitle.substring(position + 1, processTitle.length());
+            } else {
+                log.warn("Variable {} should be used for process with title \"{}\", but no underscore was found.", processTitleSuffixVariable,
+                        processTitle);
+            }
+            fileName = fileName.replace(processTitleSuffixVariable, processTitleSuffix);
+        }
+        return fileName;
     }
 
     @Override
@@ -145,7 +182,7 @@ public class SaveDocketFileStepPlugin implements IStepPluginVersion2 {
         XsltPreparatorDocket preparator = new XsltPreparatorDocket();
         try {
             XsltToPdf exporter = new XsltToPdf();
-            Path tempfile = Files.createTempFile("docket","tif");
+            Path tempfile = Files.createTempFile("docket", "tif");
 
             FileOutputStream fileOutput = new FileOutputStream(tempfile.toFile());
             exporter.startExport(this.step.getProzess(), fileOutput, docketFile.toString(), preparator, mimeType, dotsPerInch, false);
