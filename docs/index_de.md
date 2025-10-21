@@ -3,6 +3,10 @@ title: Generierung von Laufzetteln
 identifier: intranda_step_save_docket_file
 published: true
 description: Dieses Step Plugin erlaubt das automatische Generieren von Laufzetteln in verschiedenen Dateiformaten.
+keywords:
+    - Goobi workflow
+    - Plugin
+    - Step Plugin
 ---
 ## Einführung
 Dieses Plugin kann in beliebigen Aufgaben dafür verwendet werden, bei Abarbeitung der Aufgabe automatisch einen Laufzettel zu generieren und zu speichern. Das Plugin unterstützt PDF und TIFF-Dateien.
