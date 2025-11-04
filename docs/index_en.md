@@ -3,6 +3,10 @@ title: Generation of docket files
 identifier: intranda_step_save_docket_file
 published: true
 description: This Step Plugin allows you to automatically generate docket files in various file formats.
+keywords:
+    - Goobi workflow
+    - Plugin
+    - Step Plugin
 ---
 ## Introduction
 This plugin can be used in any task to automatically generate and save a docket when the task is processed. The plugin supports PDF and TIFF files.
